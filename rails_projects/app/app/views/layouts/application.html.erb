@@ -13,6 +13,8 @@
     <title>Elegant Admin Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
     <link href="/dist/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,14 +30,60 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">Elegant admin</p>
+            <p class="loader__label">Project Management</p>
         </div>
     </div>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper">      
-       
+       <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">                
+                    <a class="navbar-brand" href="http://localhost:3000">
+                        <img src="/images/icon.png" alt="" />                         
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- This is  -->
+                        <li class="nav-item hidden-sm-up"> <a class="nav-link nav-toggler waves-effect waves-light" href="javascript:void(0)"><i class="ti-menu"></i></a></li>
+                        <!-- ============================================================== -->
+                    </ul>
+                    <ul class="navbar-nav my-lg-0">                        
+                        <% if current_user %>
+                            <li class="col-md-8 user-name">
+                                <%= link_to ('<i class="fa fa-user"></i> ' + truncate(current_user.email, length: 25)).html_safe, edit_user_registration_path, title: 'Edit Profile' %>
+                            </li>
+                            <li class="col-md-1"> </li>
+                            <li class="col-md-3 logout">
+                                <%= link_to('Logout', destroy_user_session_path, class: 'btn btn-xs btn-danger', title: 'Logout', :method => :delete) %>
+                            </li>
+                        <% else %>
+                            <li class="col-md-4 pull-right">
+                                <%= link_to('Sign In', new_user_session_path, class: 'btn btn-primary', title: 'Sign In') %>
+                            </li>
+                        <% end %>                           
+                    </ul>                    
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
@@ -51,17 +99,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <p class="notice"><%= notice %></p>
-                                <p class="alert"><%= alert %></p>
-
-                                <% if user_signed_in? %>
-                                  <%= link_to 'Logout',destroy_user_session_path,method: :delete %>
-                                <% else %>
-                                  <%= link_to 'Sign in',new_user_session_path %>
-                                  <%= link_to 'Sign up',new_user_registration_path %>
+                               
+                               <% if notice or alert %>
+                                    <div class="alert <%= notice ? "alert-success" : alert ? "alert-danger" : "" %>  ">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <%= notice ? notice : alert ? alert : '' %>
+                                    </div>                                
                                 <% end %>
                               
-                                <%= bootstrap_flash %>
                                 <%= yield %>
                             </div>
                         </div>
@@ -82,7 +127,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            © 2018 Elegent Admin by wrappixel.com
+            © 2019 Project Management Application
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

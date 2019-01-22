@@ -1,0 +1,42 @@
+<div class="jumbotron jumbotron-fluid" style="background-image:url('images/images.png');color:#fff;background-size: cover;background-repeat: no-repeat;'">
+  <div class="container">
+    <h1 class="display-4">Welcome to the Project Management Application!</h1>
+    <p class="lead">You'll love managing your project with our SaaS application. Please take a look at our great plans</p>
+  </div>
+</div>
+ 
+<div class="container">
+ <div class="form-row">
+   <div class="col-md-6">
+     <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Free Plan</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Price: Free</h6>
+        <ul>
+          <li>Unlimited file uploads</li>
+          <li>Responsive design</li>
+          <li>Access anywhere</li>
+          <li>1 project</li>      
+        </ul>        
+        <%= link_to 'Sign Up', new_user_registration_path(plan: 'premium'), class: 'btn btn-primary' %> 
+      </div>
+    </div>
+   </div>
+   <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Premium Plan</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Price: $10</h6>
+          <ul>
+            <li>Unlimited file uploads</li>
+            <li>Responsive design</li>
+            <li>Access anywhere</li>
+            <li class='text-success'>Unlimited projects</li> 
+          </ul>          
+          <%= link_to 'Sign Up', new_user_registration_path(plan: 'premium'), class: 'btn btn-primary' %> 
+        </div>
+      </div>
+   </div>
+ </div> 
+</div>    
+ 
