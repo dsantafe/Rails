@@ -1,0 +1,51 @@
+add_column :users, :is_admin, :boolean, default: false
+	
+rails g scaffold UserProject project:belongs_to user:belongs_to
+rails g scaffold Project title:string details:string expected_completion_date:date tenant:belongs_to
+rails g model Tenant tenant:references name:string:index
+rails g scaffold Artifact name:string key:string project:belongs_to
+rails g resource member tenant:references user:references first_name:string last_name:string favorite_color:string
+
+tenants 
+-name
+-plan:string
+
+members
+-tenant_id
+-user_id
+-first_name
+-last_name
+
+-si es plan premium y es administrador ve todo los proyectos
+de lo contrario seleccione los proyectos donde sea igual el inquilino
+-si no es premium se realiza un top 1
+
+-si invito un miembro pido, email, nombres, lo registro en usuario, envio 
+correo con el token de confirmacion, tan pronto como lo acepte lo envio a actualizacion de datos.
+
+CREATE TABLE public.users
+(
+    id bigint NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+    email character varying COLLATE pg_catalog."default" NOT NULL DEFAULT ''::character varying,
+    encrypted_password character varying COLLATE pg_catalog."default" NOT NULL DEFAULT ''::character varying,
+    reset_password_token character varying COLLATE pg_catalog."default",
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer NOT NULL DEFAULT 0,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    confirmation_token character varying COLLATE pg_catalog."default",
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying COLLATE pg_catalog."default",
+    failed_attempts integer NOT NULL DEFAULT 0,
+    unlock_token character varying COLLATE pg_catalog."default",
+    locked_at timestamp without time zone,
+    skip_confirm_change_password boolean DEFAULT false,
+    tenant_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    CONSTRAINT users_pkey PRIMARY KEY (id)
+)
